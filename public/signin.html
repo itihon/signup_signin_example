@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Test sign in validation</title>
+        <link rel="stylesheet" href="style.css">
+        <link rel="icon" type="image/x-icon" href="/icons/favicon.ico">
+        <script>
+            function togglePwdVisibility(e) {
+                const input = e.target.nextElementSibling;
+                const toggleBtn = e.target;
+                
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    toggleBtn.classList.add('visible');
+                }
+                else {
+                    input.type = 'password';
+                    toggleBtn.classList.remove('visible');
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <form id="signin_form" method="post" action="/signin" autocomplete="off">
+            <h5 class="field_caption">E-mail</h5>
+            <input type="email" name="email">
+
+            <h5 class="field_caption">Password</h5>
+            <input type="button" class="show_password" oninput="event.stopPropagation()" onclick="togglePwdVisibility(event)">
+            <input type="password" name="password">
+
+            <input type="submit" name="submitBtn" value="Sign in" disabled class="cool-button">
+        </form>
+        <script type="module" src="bundles/signin-validation.js"></script>
+    </body>
+</html>
