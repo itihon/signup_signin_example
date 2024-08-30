@@ -1,11 +1,12 @@
 import { Validation } from "isomorphic-validation";
 import { firstNameV, lastNameV, ageV, emailV, passwordV, pwdconfirmV } from "./validations.js";
 import { areTwoEqual, isEmailNotTemp, isEmailVacantC, isEmailVacantS } from "./predicates.js";
+import { disableElement, enableElement, renderConstraints, styleInputOnValidityChange } from "./view-constraints.js";
 
 /**
  * Creates/queries (by the selector) a form.
  * Clones passed validations and groupes the clones into one validation.
- * Binds cloned validations to corresponding form fields.
+ * Binds cloned validations to the corresponding form fields.
  */
 const [signupForm, signupValidation] = Validation.profile(
     '#signup_form', 
@@ -47,10 +48,15 @@ emailVc
         isEmailVacantS,
     );
 
-// callback will be added only on the client side
-signupValidation.client.validated(
-    ({isValid}) => { signupForm.submitBtn.disabled = !isValid }
-);
+// callbacks will be added only on the client side
+signupValidation
+    .client
+    .started(disableElement(signupForm.submitBtn))
+    .valid(enableElement(signupForm.submitBtn));
+
+// these iterations will be executed only on the client side
+signupValidation.client.constraints.forEach(renderConstraints);
+signupValidation.client.validations.forEach(styleInputOnValidityChange);
 
 signupForm.addEventListener('input', signupValidation);
 
