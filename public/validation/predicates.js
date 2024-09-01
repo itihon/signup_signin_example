@@ -38,7 +38,7 @@ export const isEmailNotTemp = (
     }
 )([ 'bacaki.com', 'hellomailo.net', 'belgianairways.com' ]);
 
-export const isEmailVacantC = value => 
+export const isEmailVacantC = (value) => 
     fetch(
         'checkemail', 
         { 
@@ -47,7 +47,7 @@ export const isEmailVacantC = value =>
         }
     ).then(resp => resp.json());
 
-export const isEmailVacantS = async value => {
+export const isEmailVacantS = async (value) => {
     const repository = (await import('../../repository.js')).default;
     return !(await repository.getUserIdBy({email: value}));
 };
@@ -56,3 +56,7 @@ export const isPositiveInt =
   (value) => Number(value) >= 0 && Number.isInteger(Number(value));
 
 export const areTwoEqual = (a, b) => a === b;
+
+export const hasCapitalLetters = (value) => /[A-Z]+/.test(value);
+
+export const hasNonLetterCharacters = (value) => /\W+/.test(value);

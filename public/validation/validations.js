@@ -1,5 +1,5 @@
 import { Validation } from 'isomorphic-validation';
-import { hasOnlyLetters, isEmail, isGreaterThan, isLessThan, isLongerThan, isPositiveInt, isShorterThan } from './predicates.js';
+import { hasCapitalLetters, hasNonLetterCharacters, hasOnlyLetters, isEmail, isGreaterThan, isLessThan, isLongerThan, isPositiveInt, isShorterThan } from './predicates.js';
 
 // validations here are not bound to any form field yet 
 // they will be bound in the importing, profile-specific modules
@@ -123,6 +123,15 @@ emailV
     );
 
 
+passwordV
+    .constraint(
+        hasNonLetterCharacters,
+        { desc: 'Should contain at least 1 non-letter special character.' }
+    )
+    .constraint(
+        hasCapitalLetters,
+        { desc: 'Should contain at least 1 capital letter.' }
+    )
 
 
 /**
