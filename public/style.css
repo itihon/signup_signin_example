@@ -8,10 +8,19 @@
 body {
     min-height: 100vh;
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     padding: 8px;
     background-color: #f6f9fc;
+}
+
+iframe {
+    min-width: 320px;
+    width: clamp(26rem, 35vw, 100vw);
+
+    min-height: 320px;
+    border: none;
 }
 /*
  *  ============= Cool button css component =================
