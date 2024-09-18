@@ -50,6 +50,13 @@ function ConstraintComponent(validator) {
         status.innerText = '🚫';
     });
 
+    validator.error((_, next) => {
+        clearTimeout(showPreloaderTO);
+        status.innerText = '❌';
+
+        next();
+    });
+
     return component;
 }
 

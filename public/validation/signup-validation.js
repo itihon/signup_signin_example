@@ -52,7 +52,10 @@ emailVc
 signupValidation
     .client
     .started(disableElement(signupForm.submitBtn))
-    .valid(enableElement(signupForm.submitBtn));
+    .valid(enableElement(signupForm.submitBtn))
+    .error(() => alert(
+        '❌\nSomething went wrong. Retry later or refresh the page.'
+    ));
 
 // these iterations will be executed only on the client side
 signupValidation.client.constraints.forEach(renderConstraints);
