@@ -26,32 +26,45 @@ function htmlToNode(htmlString = '') {
     return div.firstChild;
 }
 
+function preloader(where) {
+    let showPreloaderTO; 
+    
+    function showPreloaderAfter(ms) {
+        showPreloaderTO = setTimeout(() => { 
+            where.innerHTML = preloaderTemplate(); 
+        }, ms);
+    }
+
+    function cancelPreloader() { 
+        clearTimeout(showPreloaderTO); 
+    }
+    
+    return [ showPreloaderAfter, cancelPreloader ];
+}
+
 function ConstraintComponent(validator) {
     const component = htmlToNode(constraintTemplate(validator));
     const status = component.firstElementChild;
-
-    let showPreloaderTO; 
+    const [ showPreloaderAfter, cancelPreloader ] = preloader(status);
     
     validator.started(() => {
-        clearTimeout(showPreloaderTO);
+        cancelPreloader();
         status.innerText = '✔️';
-        showPreloaderTO = setTimeout(() => { 
-            status.innerHTML = preloaderTemplate(); 
-        }, 1000);
+        showPreloaderAfter(1000);
     });
 
     validator.valid(() => {
-        clearTimeout(showPreloaderTO);
+        cancelPreloader();
         status.innerText = '✅';
     });
 
     validator.invalid(() => {
-        clearTimeout(showPreloaderTO);
+        cancelPreloader();
         status.innerText = '🚫';
     });
 
     validator.error((_, next) => {
-        clearTimeout(showPreloaderTO);
+        cancelPreloader();
         status.innerText = '❌';
 
         next();
