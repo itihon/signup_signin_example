@@ -2,6 +2,12 @@
 
 ## Sign-up and sign-in forms
 
+> [!NOTE]  
+> This example doesn't show how you should implement validation of user input. It simply demonstrates the library features.
+
+> [!WARNING]  
+> This example and the videos are outdated. The library API has been slightly changed since this example was published, particularly signatures of the [constructor](https://itihon.github.io/isomorphic-validation/api/validation/constructor) and [`Validation().constraint()`](https://itihon.github.io/isomorphic-validation/api/validation/instance-methods/constraint) method. But in general, the concept is still the same.
+
 In case somebody wants to follow along, the tags corresponding to the chapters from the video are available:
 `git checkout [Step_0 ... Step_6]`
 
